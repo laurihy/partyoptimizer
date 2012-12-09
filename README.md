@@ -5,6 +5,6 @@ Course work for data structures and algorithms. Given a set of seats and partici
 
 Still work in progress.
 
-
+See wiki for more detailed problem definition (in Finnish only)
 
 
