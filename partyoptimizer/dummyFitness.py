@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 """
 This provides a dummy fitness function for developing a genetic optimizer.
 Later on, when the genetic optimization works, we can develop the fitness function
@@ -40,7 +43,7 @@ def fitnessForOneSeat(seats, participants, seatingorder, seat):
   fitness = diff(seatingorder[seat], neighbours)
   return 1 - fitness / float(max(participants)-min(participants)) 
 
-def fitness(seats, participants, seatingorder):
+def fitness(seatingorder,participants,seats):
   """
   returns normalized 0-1 sum of all individual fitnesses
   """

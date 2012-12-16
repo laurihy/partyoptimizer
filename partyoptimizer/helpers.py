@@ -10,12 +10,10 @@ def genTable(n):
 
   ret = [[] for x in range(0,n)]
   for i in range(0,n):
-    if i<n/2:
-      ret[i].append(i+n/2)
-    elif i>=n/2:
-      ret[i].append(i-n/2)
-    if i not in [0,n/2]:
-      ret[i].append(i-1)
-    if i not in [n/2-1, n-1]:
-      ret[i].append(i+1)
+    
+    if i>1: ret[i].append(i-2)
+    if i<n-2: ret[i].append(i+2)
+    
+    if i>0 and i%2>0: ret[i].append(i-1)
+    if i<n-1 and i%2==0: ret[i].append(i+1)
   return ret
