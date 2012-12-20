@@ -43,11 +43,11 @@ def recombinate(u):
 		n = newNeighbour
 	return ret
 
-a = [3,2,4,1,5,6,7]
-b = [2,3,1,4,5,6,7]
+#a = [3,2,4,1,5,6,7]
+#b = [2,3,1,4,5,6,7]
 
 def crossover(a,b):
 	u = buildUnion(buildGraph(a),buildGraph(b))
 	return recombinate(u)
 
-print crossover(a,b)
+

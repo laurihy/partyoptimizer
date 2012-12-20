@@ -7,9 +7,18 @@ from partyoptimizer import helpers
 from partyoptimizer.dummyFitness import fitness
 from partyoptimizer.crossover import crossover
 
-def smartMutate(a, minIndex, mutationcount):
+tableSize = int(sys.argv[1])
+print 'Table size: '+str(tableSize)
+
+generations = int(sys.argv[2])
+print 'Generations: '+str(generations)
+
+populationSize = int(sys.argv[3])
+print 'Population size: '+str(populationSize)
+
+def smartMutate(a, minIndex):
 	"""
-	Switches two random indices in an array a 
+	Switches worst slot to some other place
 	"""
 	
 	n = random.randint(0,len(a)-1)
@@ -72,16 +81,19 @@ def breedAnotherGeneration(prevGen,modifier=0):
 	
 	for i in range((len(prevGen)-1)/2):
 		g = prevGen[i]
+		n = prevGen[i+1]
+
 		for j in range(2):
-			a = crossover(list(g[1]),prevGen[i+1][1])
+			l = smartMutate(list(n[1]),n[2].index(min(n[2])))
+			a = crossover(g[1],l)
 			a = mutate(a, modifier)
 			newGen.append(a)
 
 	newGen.append(prevGen[0][1])
 	return newGen
 
-def simulateGenerations(n, participants, seats):
-	gen = genRandomGeneration(participants, 1000)
+def simulateGenerations(n, participants, seats, populationSize):
+	gen = genRandomGeneration(participants, populationSize)
 	c = 0
 	best = (0,[])
 	generationsWithoutImprovement = 0
@@ -105,17 +117,16 @@ def averageFitness(population):
 	return s/float(len(population))
 
 
-
 # generate data
-seats = helpers.genTable(100)
-participants = range(0,100)
+seats = helpers.genTable(tableSize)
+participants = range(0,tableSize)
 
 # best possible seating and fitness
 best = fitness(participants, participants, seats)
 print 'Best possible: %s' % str(best)
 
 # run the algo
-bestReached = simulateGenerations(700, participants, seats)
+bestReached = simulateGenerations(generations, participants, seats, populationSize)
 print bestReached
 
 
