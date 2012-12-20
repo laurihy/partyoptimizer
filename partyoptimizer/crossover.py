@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Edge Recombination Operator :)
+Edge Recombination Operator
 http://en.wikipedia.org/wiki/Edge_recombination_operator
 """
 
@@ -11,9 +11,9 @@ import random
 def buildGraph(a):
 	ret = {}
 	for i in range(len(a)):
-		ret[a[i]] = []
-		if i>0: ret[a[i]].append(a[i-1])
-		if i<len(a)-1: ret[a[i]].append(a[i+1])
+		ret[a[i]['id']] = []
+		if i>0: ret[a[i]['id']].append(a[i-1]['id'])
+		if i<len(a)-1: ret[a[i]['id']].append(a[i+1]['id'])
 	return ret 
 
 def buildUnion(a,b):
@@ -46,8 +46,10 @@ def recombinate(u):
 #a = [3,2,4,1,5,6,7]
 #b = [2,3,1,4,5,6,7]
 
-def crossover(a,b):
+def crossover(a,b,participants):
 	u = buildUnion(buildGraph(a),buildGraph(b))
-	return recombinate(u)
+	neworder = recombinate(u)
+	return [participants[i] for i in neworder]
+
 
 

@@ -17,3 +17,15 @@ def genTable(n):
     if i>0 and i%2>0: ret[i].append(i-1)
     if i<n-1 and i%2==0: ret[i].append(i+1)
   return ret
+
+
+def genParticipants(n):
+  ret = []
+  for i in range(n):
+    p = {}
+    p['id'] = i
+    p['gender'] = 'M' if i%2==0 else 'F'
+    ret.append(p)
+  return ret
+
+#print genParticipants(6)
