@@ -1,26 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-"""
-This provides a dummy fitness function for developing a genetic optimizer.
-Later on, when the genetic optimization works, we can develop the fitness function
-
-The basic idea with this one is, that participants are representated as integers.
-The match between participants is the difference of 2 integers.
-
-
-0--1
-|  |
-2--3
-
-seats = [
-  [1,2],
-  [0,3],
-  [0,2],
-  [1,2]
-]
-
-"""
 
 def getNeighboursForSeat(seats, participants, seatingorder, seat):
   """
@@ -35,11 +15,35 @@ def fitnessForOneSeat(seats, participants, seatingorder, seat):
   cur = seatingorder[seat]
   neighbours = getNeighboursForSeat(seats, participants, seatingorder, seat)
   
+  avecfit = avecFitness(cur,neighbours)
+
+  genderfit = genderFitness(cur,neighbours)
+
+  friendfit = friendFitness(cur,neighbours)
+
+  return (genderfit*0.4)+(avecfit*0.4)+(friendfit*0.2)
+
+def avecFitness(cur, neighbours):
+  avecfit = 0
+  if not cur['avec']: 
+    avecfit = 1
+  elif cur['avec'] in [x['id'] for x in neighbours]: 
+    avecfit = 1
+  return avecfit
+
+def genderFitness(cur,neighbours):
   genderfit = 0
   for n in neighbours:
     if cur['gender'] != n['gender']: genderfit+=1
+  genderfit = genderfit/float(len(neighbours))
+  return genderfit
 
-  return genderfit/float(len(neighbours))
+def friendFitness(cur,neighbours):
+  friendfit = 0
+  for n in neighbours:
+    if n['id'] in cur['friends']: friendfit+=1
+  friendfit = friendfit/float(len(neighbours))
+  return friendfit
 
 def getFitnessBySeats(seatingorder, participants, seats):
   """
@@ -54,9 +58,14 @@ def fitness(seatingorder,participants,seats):
   fitnesses = getFitnessBySeats(seatingorder, participants, seats)
   return sum(fitnesses)/len(fitnesses), fitnesses
 
-#p = [{'gender':'M'},{'gender':'F'},{'gender':'M'},{'gender':'F'}]
-#seatingorder = [p[0],p[1],p[2],p[3]]
-
-#print fitness(seatingorder, p, seats)
+def getFitnessForGeneration(generation, participants, seats):
+  """
+  Calculates fitness for a generation, which is a list of potential solutions
+  """
+  ret = []
+  for g in generation:
+    fit, perSeat = fitness(g,participants,seats)
+    ret.append((fit,g,perSeat))
+  return ret
 
 
