@@ -12,7 +12,7 @@ from partyoptimizer.genetics.generation import simulateGenerations
 
 
 if len(sys.argv)<2:
-	raise SystemExit, 'Provide source for participants in arguments'
+  raise SystemExit, 'Provide source for participants in arguments'
 
 
 
@@ -30,17 +30,17 @@ table = helpers.genTable(len(participants))
 # determine population size
 populationSize = len(participants)*3
 if len(sys.argv)>2:
-	populationSize = int(sys.argv[2])
+  populationSize = int(sys.argv[2])
 
 
 # determine how many generations to run
 generations = len(participants)*10
 if len(sys.argv)>3:
-	generations = int(sys.argv[3])
+  generations = int(sys.argv[3])
 
 target = ''
 if len(sys.argv)>4:
-	target = sys.argv[4]
+  target = sys.argv[4]
 
 # run the algo
 print 'Start running'
@@ -55,8 +55,8 @@ print 'Done'
 # if we have target file, save bestReached there
 if target!='':
 
-	print 'Saving results to '+str(target)
-	open(target,'w').write(json.dumps(bestReached[1]))
+  print 'Saving results to '+str(target)
+  open(target,'w').write(json.dumps(bestReached[1]))
 
 print 'DONE, 4real'
 
