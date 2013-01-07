@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-def getNeighboursForSeat(seats, participants, seatingorder, seat):
+def getNeighboursForSeat(seats, seatingorder, seat):
   """
   returns participants who are sitting next to the seat
   """
@@ -13,7 +13,7 @@ def fitnessForOneSeat(seats, participants, seatingorder, seat):
   returns normalized 0-1 fitness for one seat
   """
   cur = seatingorder[seat]
-  neighbours = getNeighboursForSeat(seats, participants, seatingorder, seat)
+  neighbours = getNeighboursForSeat(seats, seatingorder, seat)
   
   avecfit = avecFitness(cur,neighbours)
 
@@ -76,5 +76,6 @@ def getFitnessForGeneration(generation, participants, seats):
     fit, perSeat = fitness(g,participants,seats)
     ret.append((fit,g,perSeat))
   return ret
+
 
 

@@ -25,8 +25,22 @@ class test_genParticipants(unittest.TestCase):
   Unit tests for genParticipants
   """
   
-  def test_genParticipantsWorks(self):
-    model = [{'gender': 'M', 'id': 0}, {'gender': 'F', 'id': 1}, {'gender': 'M', 'id': 2}, {'gender': 'F', 'id': 3}]
+  def test_genParticipantsNumber(self):
+    """
+    make sure correct number of participants is generated
+    """
+    for n in [2,6,12]:
+      participants = helpers.genParticipants(n)
+      self.assertEqual(n,len(participants))
+
+  def test_genParticipantsHasAttributes(self):
+    """
+    make sure, that participants have all required attributes
+    """
+    attributes = ['gender', 'id', 'avec', 'friends']
     participants = helpers.genParticipants(4)
-    self.assertEqual(model,participants)
+    for p in participants:
+      a = p.keys()
+      self.assertEqual(sorted(attributes), sorted(a))
+
 
