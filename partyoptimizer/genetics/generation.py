@@ -48,6 +48,10 @@ def breedAnotherGeneration(prevGen, participants):
   return newGen
 
 def simulateGenerations(n, participants, seats, populationSize):
+  """
+  Returns best reached solution. Simulates n generations, with given participants and available seats.
+  Each generation has populationSize amount of solutions
+  """
   gen = genRandomGeneration(participants, populationSize)
   c = 0
   best = (0,[])
@@ -69,8 +73,17 @@ def simulateGenerations(n, participants, seats, populationSize):
 
 
 def reverseList(list):
+  """
+  Return new list, which is reversed copy of the original
+  """
   return [x for x in reversed(list)]
 
 def averageFitness(population):
+  """
+  Returns average of fitnesses in population.
+  Population is [(fitness, x, y), (fitness...)...]
+  """
   s = reduce(lambda x, y: x+y, [x[0] for x in population])
   return s/float(len(population))
+
+

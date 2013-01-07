@@ -24,6 +24,9 @@ def fitnessForOneSeat(seats, participants, seatingorder, seat):
   return (genderfit*0.4)+(avecfit*0.4)+(friendfit*0.2)
 
 def avecFitness(cur, neighbours):
+  """
+  Returns 0 if cur HAS avec and IS NOT seated next to it, otherwise 1
+  """
   avecfit = 0
   if not cur['avec']: 
     avecfit = 1
@@ -32,6 +35,9 @@ def avecFitness(cur, neighbours):
   return avecfit
 
 def genderFitness(cur,neighbours):
+  """
+  Checks, how many neighbours are opposite gender. The more the better. From 0 (none) to 1 (all)
+  """
   genderfit = 0
   for n in neighbours:
     if cur['gender'] != n['gender']: genderfit+=1
@@ -39,6 +45,9 @@ def genderFitness(cur,neighbours):
   return genderfit
 
 def friendFitness(cur,neighbours):
+  """
+  Checks how many of the neighbours are friends of cur. From 0 (none) to 1 (all)
+  """
   friendfit = 0
   for n in neighbours:
     if n['id'] in cur['friends']: friendfit+=1
@@ -47,7 +56,7 @@ def friendFitness(cur,neighbours):
 
 def getFitnessBySeats(seatingorder, participants, seats):
   """
-  get fitness per one seat, used to check which seats have worst fitness
+  get array of fitnesses, for each seat
   """
   return [fitnessForOneSeat(seats,participants,seatingorder, x) for x in range(0,len(seats))]
 

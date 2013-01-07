@@ -9,6 +9,9 @@ http://en.wikipedia.org/wiki/Edge_recombination_operator
 import random
 
 def buildGraph(a):
+  """
+  Builds a graph, where adjacent items in list are marked as adjacent nodes
+  """
   ret = {}
   for i in range(len(a)):
     ret[a[i]['id']] = []
@@ -17,12 +20,19 @@ def buildGraph(a):
   return ret 
 
 def buildUnion(a,b):
+  """
+  Combines two graphs into one and removes duplicated edges
+  """
   ret = {}
   for i in a:
     ret[i] = list(set(a[i]+b[i]))
   return ret
 
 def recombinate(u):
+  """
+  Recombines graph into a list
+  Good explanation at http://en.wikipedia.org/wiki/Edge_recombination_operator
+  """
   ret = []
   origLen = len(u.keys())
   n = random.choice(u.keys())
@@ -43,10 +53,11 @@ def recombinate(u):
     n = newNeighbour
   return ret
 
-#a = [3,2,4,1,5,6,7]
-#b = [2,3,1,4,5,6,7]
-
 def crossover(a,b,participants):
+  """
+  Performs edge recombination for two lists. 
+  This way of crossover preserves order and count of the elements
+  """
   u = buildUnion(buildGraph(a),buildGraph(b))
   neworder = recombinate(u)
   return [participants[i] for i in neworder]
