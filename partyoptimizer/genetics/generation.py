@@ -28,11 +28,9 @@ def breedAnotherGeneration(prevGen, participants):
   newGen = []
   c = 2
   for i in range((len(prevGen)-1)/c):
-    #g = list(prevGen[i])
+    
     g = (prevGen[i][0],prevGen[i][1],prevGen[i][2])
     i1 = g[2].index(min(g[2]))
-    g[2].pop(i1)
-    #i2 = g[2].index(min(g[2]))+1
     i2 = random.randint(0,len(participants)-1)
 
     g = smartMutate(g[1],i1,i2)
@@ -60,6 +58,8 @@ def simulateGenerations(n, participants, seats, populationSize):
     gen = getFitnessForGeneration(gen,participants,seats)
     g = reverseList(sorted(gen))
     
+    print len(g[0][1])
+
     if (abs(best[0]-g[0][0]))<0.00000001: generationsWithoutImprovement+=1
     if g[0][0] > best[0]: 
       best = g[0]
