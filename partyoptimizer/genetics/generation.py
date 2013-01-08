@@ -39,8 +39,8 @@ def breedAnotherGeneration(prevGen, participants):
     
     for j in range(c):
       b = list(prevGen[i][1])
-      #if random.random()>0.95:
-      # b = mutate(b)
+      if random.random()>0.85:
+        b = mutate(b)
       a = crossover(b,list(prevGen[i+1][1]),participants)
       newGen.append(a)
 
