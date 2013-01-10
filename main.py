@@ -34,7 +34,7 @@ if len(sys.argv)>2:
 
 
 # determine how many generations to run
-generations = len(participants)*10
+generations = len(participants)*50
 if len(sys.argv)>3:
   generations = int(sys.argv[3])
 
@@ -46,8 +46,8 @@ if len(sys.argv)>4:
 print 'Start running'
 print ''
 
-bestReached = simulateGenerations(generations, participants, table, populationSize)
-print bestReached
+bestReached, scores = simulateGenerations(generations, participants, table, populationSize)
+print scores
 
 print ''
 print 'Done'
@@ -56,7 +56,7 @@ print 'Done'
 if target!='':
 
   print 'Saving results to '+str(target)
-  open(target,'w').write(json.dumps(bestReached[1]))
+  open(target,'w').write(json.dumps(bestReached))
 
 print 'DONE, 4real'
 

@@ -2,7 +2,7 @@ import unittest
 from mock import Mock
 from partyoptimizer.genetics import fitness
 
-class testFriendFitness(unittest.TestCase):
+class test_FriendFitness(unittest.TestCase):
   """
   Fitness based on friends should work properly
   """
@@ -78,7 +78,10 @@ class test_FitnessForOneSeat(unittest.TestCase):
 
     self.assertEqual(0.4,fit)
 
-class test_getNeighboursForSeat(unittest.TestCase):
+class test_GetNeighboursForSeat(unittest.TestCase):
+  """
+  Check that getNeighboursForSeat returns correct stuff
+  """
 
   def setUp(self):
     self.seats = [[1,2],[3,0],[0,3],[2,1]]

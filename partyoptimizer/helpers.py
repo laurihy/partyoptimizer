@@ -29,13 +29,34 @@ def genParticipants(n):
     p['avec'] = None
     p['friends'] = genFriendlist(n,0.15,i)
     ret.append(p)
-  return ret
+  return avecify(ret)
+
+def avecify(people):
+  ppl = list(people)
+  splitted = splitArray(ppl,'gender')
+  used = []
+  for p in ppl:
+    if random.random()>0.6 and p['id'] not in used:
+      opp = splitted['F'] if p['gender']=='M' else splitted['M']
+      if len(opp)>0:
+        avec = opp.pop(0)
+        p['avec'], avec['avec'] = avec['id'], p['id']
+        used.extend([p['id'], avec['id']])
+        
+        # remove current also from list of targets, no one can have multiple avecs :(
+        splitted[p['gender']] = filter(lambda x: x['id']!=p['id'], splitted[p['gender']])
+  return ppl
+
+
+
+
 
 def genFriendlist(n,p,cur):
   ret = []
   for i in range(n):
     if random.random()<p and i!=cur: ret.append(i)
   return ret
+
 
 
 def dictify(arr, key):
@@ -46,12 +67,10 @@ def dictify(arr, key):
     ret[item[key]] = item
   return ret
 
-def splitDict(d, k, val):
+def splitArray(d, k):
   ret = {}
-  for key,item in d.items():
-    newkey = item[k]
-    if newkey not in ret:
-      ret[newkey] = []
-    ret[newkey].append(item[val])
+  for item in d:
+    if item[k] not in ret: ret[item[k]] = []
+    ret[item[k]].append(item)
   return ret 
 

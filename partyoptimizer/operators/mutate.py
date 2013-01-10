@@ -17,8 +17,6 @@ def mutate(a):
   """
   Returns new array, where two random indices are swapped
   """
-  a = list(a)
+  
   n1, n2 = random.randint(0,len(a)-1), random.randint(0,len(a)-1)
-  a[n1],a[n2] = a[n2],a[n1]
-
-  return a
+  return smartMutate(a,n1,n2)

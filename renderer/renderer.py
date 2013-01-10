@@ -22,6 +22,7 @@ def generateCell(data):
   ret+='<p>Gender: '+str(data['gender'])+'</p>'
   ret+='<p>Avec: '+str(data['avec'])+'</p>'
   ret+='<p>Friends: '+str(data['friends'])+'</p>'
+  ret+='<p>Score: '+str(data['fitness'])+'</p>'
   ret+='</td>'
 
   return ret
@@ -44,9 +45,14 @@ def generateHtml(data):
 
   return "<html><head>"+style+"<title>ASD</title></head><body>"+table+"</body></html>"
 
-print sourcefile
 sourcejson = json.loads(sourcefile)
-html = generateHtml(sourcejson)
+
+# our data stores score for participants individually, attach it to it
+
+for i in range(len(sourcejson[1])):
+  sourcejson[1][i]['fitness'] = sourcejson[2][i] 
+
+html = generateHtml(sourcejson[1])
 targetfile.write(html);
 print 'DONE'
 

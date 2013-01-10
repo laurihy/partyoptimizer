@@ -4,7 +4,7 @@
 import unittest
 from partyoptimizer.operators import crossover
 
-class test_operators(unittest.TestCase):
+class test_Operators(unittest.TestCase):
 
   def test_buildGraph(self):
     origList = [{'id':x} for x in [1,2,3,4]]    
