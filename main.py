@@ -47,7 +47,7 @@ print 'Start running'
 print ''
 
 bestReached, scores = simulateGenerations(generations, participants, table, populationSize)
-print scores
+print bestReached
 
 print ''
 print 'Done'

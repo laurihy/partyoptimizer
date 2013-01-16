@@ -21,6 +21,9 @@ def genTable(n):
   return ret
 
 def genParticipants(n):
+  """
+  generates dummy list of participants
+  """
   ret = []
   for i in range(n):
     p = {}
@@ -32,35 +35,40 @@ def genParticipants(n):
   return avecify(ret)
 
 def avecify(people):
+  """
+  assigns avecs for a list of people with a propability of 0.4.
+  If B is assigned for A, then A has to be assigned to B
+  """
   ppl = list(people)
   splitted = splitArray(ppl,'gender')
   used = []
   for p in ppl:
-    if random.random()>0.6 and p['id'] not in used:
-      opp = splitted['F'] if p['gender']=='M' else splitted['M']
-      if len(opp)>0:
-        avec = opp.pop(0)
-        p['avec'], avec['avec'] = avec['id'], p['id']
-        used.extend([p['id'], avec['id']])
-        
-        # remove current also from list of targets, no one can have multiple avecs :(
-        splitted[p['gender']] = filter(lambda x: x['id']!=p['id'], splitted[p['gender']])
+    if 'M' in splitted and 'F' in splitted:
+      if random.random()>0.6 and p['id'] not in used:
+        opp = splitted['F'] if p['gender']=='M' else splitted['M']
+        if len(opp)>0:
+          avec = opp.pop(0)
+          p['avec'], avec['avec'] = avec['id'], p['id']
+          used.extend([p['id'], avec['id']])
+          
+          # remove current also from list of targets, no one can have multiple avecs :(
+          splitted[p['gender']] = filter(lambda x: x['id']!=p['id'], splitted[p['gender']])
   return ppl
 
-
-
-
-
 def genFriendlist(n,p,cur):
+  """
+  generates a list of friends (index of 0-n) with probability of p, excluding cur
+  """
   ret = []
   for i in range(n):
     if random.random()<p and i!=cur: ret.append(i)
   return ret
 
 
-
 def dictify(arr, key):
-  """ generate dict of array of dicts, based on a given key"""
+  """ 
+  generate dict of array of dicts, based on a given key
+  """
   ret = {}
   for item in arr:
     if item[key] in ret: raise ValueError('provided key must be unique')
